@@ -30,7 +30,7 @@
     },
     {
       "name": "Sanitary",
-      "keywords": ["Sanitary", "Sanitary Waste", "Waste", "Soil", "SW"],
+      "keywords": ["Sanitary", "Sanitary Waste", "Waste","P - Sanitary Waste", "Soil", "SW"],
       "color": [255, 127, 0]
     },
     {
@@ -59,11 +59,6 @@
       "color": [0, 65, 255]
     },
     {
-      "name": "Domestic Hot Water",
-      "keywords": ["Domestic Hot Water", "Potable Hot", "DHW"],
-      "color": [255, 60, 60]
-    },
-    {
       "name": "Heating Hot Water Supply",
       "keywords": ["Heating Hot Water Supply", "HHW Supply", "Heating Supply", "Hydronic Supply", "HHWS"],
       "color": [255, 0, 63]
@@ -72,6 +67,11 @@
       "name": "Heating Hot Water Return",
       "keywords": ["Heating Hot Water Return", "HHW Return", "Heating Return", "Hydronic Return", "HHWR"],
       "color": [255, 0, 127]
+    },
+    {
+      "name": "Domestic Hot Water",
+      "keywords": ["Domestic Hot Water", "Potable Hot", "HW", "HW 1", "DHW"],
+      "color": [255, 60, 60]
     },
     {
       "name": "Chilled Water Supply",
@@ -100,8 +100,13 @@
     },
     {
       "name": "Exhaust Air",
-      "keywords": ["Exhaust Air", "General Exhaust", "Kitchen Exhaust", "Toilet Exhaust", "Relief Air", "EA", "Exhaust"],
-      "color": [103, 165, 82]
-    }
+      "keywords": [ "Exhaust Air", "General Exhaust", "Kitchen Exhaust", "Toilet Exhaust", "Relief Air", "EA", "Exhaust" ],
+      "color": [ 103, 165, 82 ]
+    },
+    {
+      "name": "Refrigerant",
+      "keywords": [ "Refrigerant", "01-Refrigeration", "01-Refrigeration-Suction" ],
+      "color": [ 0, 255, 255 ]
+    },
   ]
 }

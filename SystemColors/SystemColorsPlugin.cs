@@ -57,8 +57,6 @@ namespace SystemColors
             int colored = 0;
             int skipped = 0;
 
-            doc.Models.ResetAllPermanentMaterials();
-
             foreach (var fileNode in doc.Models.RootItems)
             {
                 var fileName = Path.GetFileName(fileNode.Model?.FileName ?? string.Empty);
@@ -88,6 +86,10 @@ namespace SystemColors
                 }
 
                 bool anyColored = false;
+
+                // Reset prior overrides on this file's items so stale colors from
+                // earlier runs do not persist when keywords or excluded disciplines change.
+                doc.Models.ResetPermanentMaterials(allItems);
 
                 // Pass 1: discipline color for all items in this file
                 if (disciplineRgb != null)

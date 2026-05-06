@@ -1,0 +1,107 @@
+{
+  "systemPropertyNames": [
+    "Fabrication Service", "System Name", "System", "Service",
+    "MEP System", "System Type", "Piping System", "Duct System"
+  ],
+  "insulationGroupNames": ["Insulation", "Pipe Insulation", "Duct Insulation", "Mechanical Insulation"],
+  "insulationTransparency": 0.5,
+  "disciplines": [
+    { "codes": ["MECH", "MD", "MH"],      "color": [0, 200, 100]  },
+    { "codes": ["PLM", "PL", "GP", "PP"], "color": [0, 65, 255]   },
+    { "codes": ["FP"],                     "color": [255, 0, 0]    },
+    { "codes": ["ELEC", "EL", "EE"],      "color": [189, 189, 0]  },
+    { "codes": ["MP"],                     "color": [0, 165, 165]  }
+  ],
+  "systems": [
+    {
+      "name": "Fire Protection - Dry",
+      "keywords": ["Fire Protection - Dry", "Dry Pipe", "Pre-Action", "Dry System", "FPD"],
+      "color": [233, 113, 50]
+    },
+    {
+      "name": "Fire Protection",
+      "keywords": ["Fire Protection", "Fire Sprinkler", "Sprinkler", "Wet Pipe", "Fire Main", "Suppression", "FP"],
+      "color": [255, 0, 0]
+    },
+    {
+      "name": "Sanitary Vent",
+      "keywords": ["Sanitary Vent", "Plumbing Vent", "Vent Stack", "Stack Vent", "SV"],
+      "color": [255, 191, 0]
+    },
+    {
+      "name": "Sanitary",
+      "keywords": ["Sanitary", "Sanitary Waste", "Waste", "Soil", "SW"],
+      "color": [255, 127, 0]
+    },
+    {
+      "name": "Grease Waste",
+      "keywords": ["Grease Waste", "Grease Drain", "Grease", "Kitchen Waste", "GW", "KW"],
+      "color": [0, 255, 0]
+    },
+    {
+      "name": "Storm Overflow",
+      "keywords": ["Storm Overflow", "Secondary Drain", "Emergency Overflow", "SO"],
+      "color": [219, 183, 255]
+    },
+    {
+      "name": "Storm Drain",
+      "keywords": ["Storm Drain", "Storm Water", "Stormwater", "Rainwater", "Rain Water", "Roof Drain", "SD", "RD"],
+      "color": [128, 0, 255]
+    },
+    {
+      "name": "Domestic Recirculation",
+      "keywords": ["Domestic Recirculation", "DHW Recirculation", "Recirculation", "Recirc", "DHWR"],
+      "color": [255, 170, 170]
+    },
+    {
+      "name": "Domestic Cold Water",
+      "keywords": ["Domestic Cold Water", "Cold Water", "Potable Cold", "DCW", "CW"],
+      "color": [0, 65, 255]
+    },
+    {
+      "name": "Domestic Hot Water",
+      "keywords": ["Domestic Hot Water", "Potable Hot", "DHW"],
+      "color": [255, 60, 60]
+    },
+    {
+      "name": "Heating Hot Water Supply",
+      "keywords": ["Heating Hot Water Supply", "HHW Supply", "Heating Supply", "Hydronic Supply", "HHWS"],
+      "color": [255, 0, 63]
+    },
+    {
+      "name": "Heating Hot Water Return",
+      "keywords": ["Heating Hot Water Return", "HHW Return", "Heating Return", "Hydronic Return", "HHWR"],
+      "color": [255, 0, 127]
+    },
+    {
+      "name": "Chilled Water Supply",
+      "keywords": ["Chilled Water Supply", "CHW Supply", "Chilled Supply", "Chilled Water", "CHWS"],
+      "color": [234, 170, 255]
+    },
+    {
+      "name": "Chilled Water Return",
+      "keywords": ["Chilled Water Return", "CHW Return", "Chilled Return", "CHWR"],
+      "color": [191, 0, 255]
+    },
+    {
+      "name": "Supply Air",
+      "keywords": ["Supply Air", "HVAC-SA", "Discharge Air", "Cool Supply", "Cooling Supply", "SA"],
+      "color": [0, 127, 255]
+    },
+    {
+      "name": "Return Air",
+      "keywords": ["Return Air", "HVAC-RA", "Recirculated Air", "RA"],
+      "color": [0, 255, 127]
+    },
+    {
+      "name": "Outside Air",
+      "keywords": ["Outside Air", "Fresh Air", "Makeup Air", "Outdoor Air", "Ventilation Air", "OA"],
+      "color": [0, 191, 255]
+    },
+    {
+      "name": "Exhaust Air",
+      "keywords": ["Exhaust Air", "General Exhaust", "Kitchen Exhaust", "Toilet Exhaust", "Relief Air", "EA", "Exhaust"],
+      "color": [103, 165, 82]
+    }
+  ]
+}

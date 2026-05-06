@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin.definition>
+  <plugin id="SystemColors.ApplyColors"
+          base="Autodesk.Navisworks.Api.Plugins.AddInPlugin"
+          assembly="SystemColors">
+    <display.name>System Colors</display.name>
+    <description>Apply discipline colors from colors.json</description>
+  </plugin>
+  <command id="SystemColors.ApplyColors"
+           plugin="SystemColors.ApplyColors">
+    <display.name>Apply System Colors</display.name>
+    <description>Colors model elements by discipline code in filename</description>
+  </command>
+</plugin.definition>

@@ -57,6 +57,8 @@ namespace SystemColors
             int colored = 0;
             int skipped = 0;
 
+            doc.Models.ResetAllPermanentMaterials();
+
             foreach (var fileNode in doc.Models.RootItems)
             {
                 var fileName = Path.GetFileName(fileNode.Model?.FileName ?? string.Empty);

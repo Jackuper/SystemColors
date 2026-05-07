@@ -11,4 +11,15 @@
     <display.name>Apply System Colors</display.name>
     <description>Colors model elements by discipline code in filename</description>
   </command>
+  <plugin id="SystemColors.Audit"
+          base="Autodesk.Navisworks.Api.Plugins.AddInPlugin"
+          assembly="SystemColors">
+    <display.name>Audit System Colors</display.name>
+    <description>Reports unmatched property values to help expand colors.json</description>
+  </plugin>
+  <command id="SystemColors.Audit"
+           plugin="SystemColors.Audit">
+    <display.name>Audit System Colors</display.name>
+    <description>Reports unmatched property values</description>
+  </command>
 </plugin.definition>

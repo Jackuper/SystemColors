@@ -182,6 +182,139 @@ namespace SystemColors.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual((byte)191, result.Value.G); // Sanitary Vent color, not Sanitary
         }
+
+        // --- Word-boundary tests: short keywords must not match inside longer words ---
+
+        [TestMethod]
+        public void GetSystemColor_ShortKeyword_DoesNotMatchInsideWord()
+        {
+            // Bug: "RA" matches inside "Structural" via substring, coloring foundation slabs
+            // and structural columns Return-Air green. Match must require word boundaries.
+            var config = new ColorConfig
+            {
+                Disciplines = new List<DisciplineEntry>(),
+                Systems = new List<SystemEntry>
+                {
+                    MakeSystem("Return Air", new[] { 0, 255, 127 }, "Return Air", "HVAC-RA", "RA")
+                }
+            };
+            var mapper = new DisciplineColorMapper(config);
+            Assert.IsNull(mapper.GetSystemColor("Structural Foundations"),
+                "RA must not match inside 'structuRAl'");
+            Assert.IsNull(mapper.GetSystemColor("Structural Columns"),
+                "RA must not match inside 'structuRAl'");
+            Assert.IsNull(mapper.GetSystemColor("Structural Framing"),
+                "RA must not match inside 'structuRAl' or 'fRAming'");
+        }
+
+        [TestMethod]
+        public void GetSystemColor_ShortKeyword_StillMatchesAtBoundaries()
+        {
+            var config = new ColorConfig
+            {
+                Disciplines = new List<DisciplineEntry>(),
+                Systems = new List<SystemEntry>
+                {
+                    MakeSystem("Return Air", new[] { 0, 255, 127 }, "Return Air", "HVAC-RA", "RA")
+                }
+            };
+            var mapper = new DisciplineColorMapper(config);
+            Assert.IsNotNull(mapper.GetSystemColor("RA"));
+            Assert.IsNotNull(mapper.GetSystemColor("RA-1"));
+            Assert.IsNotNull(mapper.GetSystemColor("HVAC-RA"));
+            Assert.IsNotNull(mapper.GetSystemColor("Ductwork: Return Air (RA) +0 w.g"));
+        }
+
+        [TestMethod]
+        public void GetSystemColor_KeywordSeparator_TreatsSpaceHyphenUnderscoreAsInterchangeable()
+        {
+            // Bug: fab catalogs use hyphenated names like "Drainage: 01-Storm-Drain",
+            // but keyword "Storm Drain" (with a literal space) would not match.
+            // Treat space/hyphen/underscore as the same separator so authors can write
+            // keywords readably and still match either form.
+            var config = new ColorConfig
+            {
+                Disciplines = new List<DisciplineEntry>(),
+                Systems = new List<SystemEntry>
+                {
+                    MakeSystem("Storm Drain", new[] { 128, 0, 255 }, "Storm Drain", "Roof Drain"),
+                    MakeSystem("Domestic Cold Water", new[] { 0, 65, 255 }, "Cold Water", "DCW", "CW")
+                }
+            };
+            var mapper = new DisciplineColorMapper(config);
+
+            // The actual fab service value the user reported
+            var stormResult = mapper.GetSystemColor("Drainage: 01-Storm-Drain");
+            Assert.IsNotNull(stormResult, "Storm Drain keyword must match hyphenated form");
+            Assert.AreEqual((byte)128, stormResult.Value.R);
+
+            // Hyphen and underscore variants
+            Assert.IsNotNull(mapper.GetSystemColor("Storm-Drain"));
+            Assert.IsNotNull(mapper.GetSystemColor("Storm_Drain"));
+            Assert.IsNotNull(mapper.GetSystemColor("Roof-Drain"));
+
+            // Multi-word DCW keyword: "Cold Water" must match "Cold-Water"
+            Assert.IsNotNull(mapper.GetSystemColor("Pipe: Cold-Water Service"));
+        }
+
+        [TestMethod]
+        public void GetSystemMatch_ReturnsTransparency_WhenConfigured()
+        {
+            var config = new ColorConfig
+            {
+                Disciplines = new List<DisciplineEntry>(),
+                Systems = new List<SystemEntry>
+                {
+                    new SystemEntry
+                    {
+                        Name = "Mechanical Equipment",
+                        Keywords = new List<string> { "Mechanical Equipment" },
+                        Color = new[] { 0, 0, 160 },
+                        Transparency = 0.5
+                    }
+                }
+            };
+            var mapper = new DisciplineColorMapper(config);
+            var match = mapper.GetSystemMatch("Mechanical Equipment");
+            Assert.IsNotNull(match);
+            Assert.AreEqual((byte)160, match.Color.B);
+            Assert.AreEqual(0.5, match.Transparency, 0.0001);
+        }
+
+        [TestMethod]
+        public void GetSystemMatch_TransparencyDefaultsToZero()
+        {
+            var config = new ColorConfig
+            {
+                Disciplines = new List<DisciplineEntry>(),
+                Systems = new List<SystemEntry>
+                {
+                    MakeSystem("Supply Air", new[] { 0, 127, 255 }, "Supply Air", "SA")
+                }
+            };
+            var mapper = new DisciplineColorMapper(config);
+            var match = mapper.GetSystemMatch("Supply Air");
+            Assert.IsNotNull(match);
+            Assert.AreEqual(0.0, match.Transparency, 0.0001);
+        }
+
+        [TestMethod]
+        public void GetSystemColor_KeywordWithRegexChars_IsTreatedLiterally()
+        {
+            // Keywords like "P - Sanitary Waste", "01-Refrigeration", "Fire Protection - Dry"
+            // contain hyphens; they must match literally, not as regex syntax.
+            var config = new ColorConfig
+            {
+                Disciplines = new List<DisciplineEntry>(),
+                Systems = new List<SystemEntry>
+                {
+                    MakeSystem("Refrigerant", new[] { 0, 255, 255 }, "01-Refrigeration", "01-Refrigeration-Suction")
+                }
+            };
+            var mapper = new DisciplineColorMapper(config);
+            Assert.IsNotNull(mapper.GetSystemColor("01-Refrigeration"));
+            Assert.IsNotNull(mapper.GetSystemColor("Pipe: 01-Refrigeration-Suction Line"));
+        }
     }
 
     [TestClass]

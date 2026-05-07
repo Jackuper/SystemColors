@@ -72,8 +72,11 @@ namespace SystemColors
                 {
                     allItems.Add(item);
 
-                    var systemValue = GetSystemPropertyValue(item, config.SystemPropertyNames);
-                    if (!string.IsNullOrEmpty(systemValue) && mapper.GetSystemColor(systemValue) != null)
+                    // Find first listed property whose value matches a keyword. This is more
+                    // forgiving than "first non-empty" — a property with junk text doesn't block
+                    // a later property that would have matched.
+                    var systemValue = GetMatchingPropertyValue(item, config.SystemPropertyNames, mapper);
+                    if (systemValue != null)
                     {
                         if (!systemGroups.ContainsKey(systemValue))
                             systemGroups[systemValue] = new ModelItemCollection();
@@ -98,12 +101,15 @@ namespace SystemColors
                     anyColored = true;
                 }
 
-                // Pass 2: system-specific colors (overrides discipline for matched items)
+                // Pass 2: system-specific colors (overrides discipline for matched items).
+                // Also applies per-system transparency when configured.
                 foreach (var kvp in systemGroups)
                 {
-                    var systemRgb = mapper.GetSystemColor(kvp.Key);
-                    if (systemRgb == null) continue;
-                    doc.Models.OverridePermanentColor(kvp.Value, ToNavisColor(systemRgb.Value));
+                    var match = mapper.GetSystemMatch(kvp.Key);
+                    if (match == null) continue;
+                    doc.Models.OverridePermanentColor(kvp.Value, ToNavisColor(match.Color));
+                    if (match.Transparency > 0)
+                        doc.Models.OverridePermanentTransparency(kvp.Value, match.Transparency);
                     anyColored = true;
                 }
 
@@ -128,15 +134,19 @@ namespace SystemColors
         }
 
         /// <summary>
-        /// Tries each property name in order and returns the first non-empty value found.
+        /// Tries each property name in order. Returns the first non-empty value that matches
+        /// a configured system keyword. Skips properties whose values exist but don't match anything,
+        /// so e.g. a multi-system "Return Air,Supply Air,Power" doesn't block a more specific
+        /// match available on a later property like Category.
         /// </summary>
-        private static string GetSystemPropertyValue(ModelItem item, IList<string> propertyNames)
+        private static string GetMatchingPropertyValue(ModelItem item, IList<string> propertyNames, DisciplineColorMapper mapper)
         {
             if (propertyNames == null) return null;
             foreach (var propName in propertyNames)
             {
                 var value = GetPropertyValue(item, propName);
-                if (!string.IsNullOrEmpty(value)) return value;
+                if (string.IsNullOrEmpty(value)) continue;
+                if (mapper.GetSystemMatch(value) != null) return value;
             }
             return null;
         }

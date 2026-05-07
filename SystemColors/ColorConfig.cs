@@ -22,6 +22,12 @@ namespace SystemColors
 
         [JsonProperty("color")]
         public int[] Color { get; set; } = new int[3];
+
+        /// <summary>
+        /// Optional transparency 0.0 (opaque) to 1.0 (fully transparent). 0 = no transparency override.
+        /// </summary>
+        [JsonProperty("transparency")]
+        public double Transparency { get; set; } = 0.0;
     }
 
     public class ColorConfig

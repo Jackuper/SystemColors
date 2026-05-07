@@ -1,23 +1,17 @@
 {
   "systemPropertyNames": [
-    "Fabrication Service", "System Name", "System", "Service",
+    "Fabrication Service", "System Name", "Category", "System Classification", "System", "Service",
     "MEP System", "System Type", "Piping System", "Duct System",
-    "Category", "Family"
+    "Load Classification", "Tray Type", "Name"
   ],
   "insulationGroupNames": ["Insulation", "Pipe Insulation", "Duct Insulation", "Mechanical Insulation"],
   "insulationTransparency": 0.5,
-  "disciplines": [
-    { "codes": ["MECH", "MD", "MH"],      "color": [0, 200, 100]  },
-    { "codes": ["PLM", "PL", "GP", "PP"], "color": [0, 65, 255]   },
-    { "codes": ["FP"],                     "color": [255, 0, 0]    },
-    { "codes": ["ELEC", "EL", "EE"],      "color": [189, 189, 0]  },
-    { "codes": ["MP"],                     "color": [0, 165, 165]  }
-  ],
   "systems": [
     {
-      "name": "Miscellaneous Metals",
-      "keywords": [ "BEAM", "Steel", "Supports", "Structural Framing" ],
-      "color": [ 128, 0, 0 ]
+      "name": "Mechanical Equipment",
+      "keywords": [ "Mechanical Equipment" ],
+      "color": [ 0, 0, 160 ],
+      "transparency": 0.5
     },
     {
       "name": "Fire Protection - Dry",
@@ -26,17 +20,27 @@
     },
     {
       "name": "Fire Protection",
-      "keywords": [ "Fire Protection", "Fire Sprinkler", "Sprinkler", "Wet Pipe", "Fire Main", "Suppression", "FP" ],
+      "keywords": [ "Fire Protection", "Fire Sprinkler", "Sprinkler", "Wet Pipe", "Fire Main", "Suppression", "FP", "Hydrapipe", "HYDRAPIPE" ],
       "color": [ 255, 0, 0 ]
     },
     {
+      "name": "Lighting",
+      "keywords": [ "Lighting", "Lighting Fixtures" ],
+      "color": [ 255, 255, 170 ]
+    },
+    {
+      "name": "Power",
+      "keywords": [ "Power", "Electrical", "Power Distribution", "PD", "Cable Tray", "Tray", "Cable Tray with Fittings", "Conduits", "Conduit Fittings", "Conduit" ],
+      "color": [ 189, 189, 0 ]
+    },
+    {
       "name": "Sanitary Vent",
-      "keywords": [ "Sanitary Vent", "Plumbing Vent", "Vent Stack", "Stack Vent", "SV" ],
+      "keywords": [ "Sanitary Vent", "Plumbing Vent", "Vent Stack", "Stack Vent", "Vent", "SV" ],
       "color": [ 255, 191, 0 ]
     },
     {
       "name": "Sanitary",
-      "keywords": [ "Sanitary", "Sanitary Waste", "Waste", "P - Sanitary Waste", "Soil", "SW" ],
+      "keywords": [ "Sanitary", "Sanitary Waste", "Waste", "P - Sanitary Waste", "Soil", "SAN", "SW" ],
       "color": [ 255, 127, 0 ]
     },
     {
@@ -46,12 +50,12 @@
     },
     {
       "name": "Storm Overflow",
-      "keywords": [ "Storm Overflow", "Secondary Drain", "Emergency Overflow", "SO" ],
+      "keywords": [ "Storm Overflow", "Secondary Drain", "Emergency Overflow", "Overflow Drain", "SO" ],
       "color": [ 219, 183, 255 ]
     },
     {
       "name": "Storm Drain",
-      "keywords": [ "Storm Drain", "Storm Water", "Stormwater", "Rainwater", "Rain Water", "Roof Drain", "SD", "RD" ],
+      "keywords": [ "Storm Drain", "Storm Drainage", "Storm Water", "Stormwater", "Rainwater", "Rain Water", "Roof Drain", "SD", "RD" ],
       "color": [ 128, 0, 255 ]
     },
     {
@@ -76,8 +80,18 @@
     },
     {
       "name": "Domestic Hot Water",
-      "keywords": [ "Domestic Hot Water", "Potable Hot", "HW", "HW 1", "DHW" ],
+      "keywords": [ "Domestic Hot Water", "Domestic Tempered Water", "Tempered Water", "Potable Hot", "HW", "HW 1", "DHW" ],
       "color": [ 255, 60, 60 ]
+    },
+    {
+      "name": "Natural Gas",
+      "keywords": [ "Natural Gas", "P - Natural Gas", "NG" ],
+      "color": [ 255, 215, 0 ]
+    },
+    {
+      "name": "Condensate",
+      "keywords": [ "Condensate Drain", "Condensate", "Condensate Pipe" ],
+      "color": [ 153, 204, 255 ]
     },
     {
       "name": "Chilled Water Supply",
@@ -101,7 +115,7 @@
     },
     {
       "name": "Return Air",
-      "keywords": [ "Return Air", "HVAC-RA", "Recirculated Air", "RA" ],
+      "keywords": [ "Return Air", "HVAC-RA", "Recirculated Air", "RA", "Return Diffuser" ],
       "color": [ 0, 255, 127 ]
     },
     {
@@ -113,6 +127,11 @@
       "name": "Exhaust Air",
       "keywords": [ "Exhaust Air", "General Exhaust", "Kitchen Exhaust", "Toilet Exhaust", "Relief Air", "EA", "Exhaust" ],
       "color": [ 103, 165, 82 ]
+    },
+    {
+      "name": "Miscellaneous Metals",
+      "keywords": [ "BEAM", "Steel", "Supports", "Structural Framing" ],
+      "color": [ 128, 0, 0 ]
     }
   ]
 }
